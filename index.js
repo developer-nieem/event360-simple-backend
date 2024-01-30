@@ -24,7 +24,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+     client.connect();
 
     const eventServicesCollection = client
       .db("event360")
@@ -89,10 +89,9 @@ async function run() {
 
 
     app.put("/recent-event/:id" , async(req, res) => {
-
-      const body =  req.body;
       const id = req.params.id;
-
+      const body =  req.body;
+      
       const filter = {_id : new ObjectId(id)}
 
       const updateDoc = {
@@ -104,6 +103,8 @@ async function run() {
       }
 
       const result = await recentEventCollection.updateOne(filter, updateDoc)
+
+      res.send(result)
 
     })
 
